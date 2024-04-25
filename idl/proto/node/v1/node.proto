@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto.node.v1;
+
+message ComputeRequest {
+  double start = 1;
+  double end = 2;
+}
+
+message ComputeResponse {
+  double sum = 1;
+  int64 execution_time = 2;
+}
+
+service LeibnizPiService {
+  rpc Compute(ComputeRequest) returns (ComputeResponse);
+}
