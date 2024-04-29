@@ -2,28 +2,17 @@ package main
 
 import (
 	"log"
-	"net"
-	"node/server"
-
-	pb "idl/gen/node/v1"
-
-	"google.golang.org/grpc"
+	"node/gateway"
+	"node/transport"
+	"time"
 )
 
 func main() {
-	lis, err := net.Listen("tcp", ":7001")
-
+	time.Sleep(time.Second * 10)
+	err := gateway.RegisterNode()
 	if err != nil {
-		log.Fatalf("failed connection: %v", err)
+		log.Fatalln(err)
 	}
 
-	s := grpc.NewServer()
-
-	pb.RegisterLeibnizPiServiceServer(s, server.New())
-
-	log.Printf("server listening at %v", lis.Addr())
-
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to server: %v", err)
-	}
+	transport.RunGrpcServer()
 }

@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  master:
+    build:
+      context: ./
+      dockerfile: ./docker/master/Dockerfile
+    container_name: master
+    restart: always
+    ports:
+      - "7000:7000"
+      - "7070:7070"
+  node_1:
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    container_name: node_1
+    restart: always
+    environment:
+      - HOST=node_1
+      - PORT=7001
+    ports:
+      - "7001:7001"
+    depends_on:
+      - master
+  node_2:
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    container_name: node_2
+    restart: always
+    environment:
+      - HOST=node_2
+      - PORT=7001
+    ports:
+      - "7002:7001"
+    depends_on:
+      - master
+  node_3:
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    container_name: node_3
+    restart: always
+    environment:
+      - HOST=node_3
+      - PORT=7001
+    ports:
+      - "7003:7001"
+    depends_on:
+      - master
+  node_4:
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    container_name: node_4
+    restart: always
+    environment:
+      - HOST=node_4
+      - PORT=7001
+    ports:
+      - "7004:7001"
+    depends_on:
+      - master
+  # node_5:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/node/Dockerfile
+  #   container_name: node_5
+  #   restart: always
+  #   environment:
+  #     - HOST=node_5
+  #     - PORT=7001
+  #   ports:
+  #     - "7005:7001"
+  #   depends_on:
+  #     - master
+  # node_6:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/node/Dockerfile
+  #   container_name: node_6
+  #   restart: always
+  #   environment:
+  #     - HOST=node_6
+  #     - PORT=7001
+  #   ports:
+  #     - "7006:7001"
+  #   depends_on:
+  #     - master

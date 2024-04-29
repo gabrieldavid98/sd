@@ -1,6 +1,8 @@
 param(
     [switch] $Idl,
-    [switch] $LintIdl
+    [switch] $LintIdl,
+    [switch] $Run,
+    [switch] $Clean
 )
 
 function Lint-Idl {
@@ -15,6 +17,14 @@ function Generate-Idl {
     Pop-Location
 }
 
+function Run {
+    docker-compose up --force-recreate --build
+}
+
+function Remove {
+    docker-compose down --rmi local
+}
+
 
 if ($Idl) {
     Generate-Idl
@@ -23,5 +33,15 @@ if ($Idl) {
 
 if ($LintIdl) {
     Lint-Idl
+    return
+}
+
+if ($Run) {
+    Run
+    return
+}
+
+if ($Clean) {
+    Remove
     return
 }

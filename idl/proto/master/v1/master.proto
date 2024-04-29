@@ -2,7 +2,11 @@ syntax = "proto3";
 
 package proto.master.v1;
 
-message AddNodeRequest { string host = 1; }
+message AddNodeRequest {
+  string host = 1;
+  int32 port = 2;
+}
+
 message AddNodeResponse { bool ok = 1; }
 
 service NodeService { rpc AddNode(AddNodeRequest) returns (AddNodeResponse); }
